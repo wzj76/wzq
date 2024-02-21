@@ -1,0 +1,26 @@
+Redis 单节点 2.8
+
+Please Enter Command: c-rpush  s-blpop  q-quit i-redis config
+c
+Input rpush Count:
+10000
+rpush : [10000  3373 0.3373]
+
+Please Enter Command: c-rpush  s-blpop  q-quit i-redis config
+s
+Input blpop Count:
+10000
+blpop : [10000  2366 0.2366]
+
+
+Please Enter Command: c-rpush  s-blpop  q-quit i-redis config
+c
+Input rpush Count:
+100000
+rpush : [100000  34828 0.3483]
+
+Please Enter Command: c-rpush  s-blpop  q-quit i-redis config
+s
+Input blpop Count:
+100000
+blpop : [100000  30440 0.3044]

@@ -1,0 +1,33 @@
+一、PageView
+	1.函数 void setCustomScrollThreshold（float）在引擎V3.9已经被弃用，没有替代函数。PageView修改为默认翻页距离500像素或者页大小的一半。基本满足现有需求 引擎3.17.2版本直接删掉该函数即可
+	2.函数 ssize_t getCurPageIndex（）在引擎V3.9已经被弃用，使用 ssize_t getCurrentPageIndex() 替代。
+二、CSB动画
+	1.已有动画CSB旧版本引擎不支持,指导方案是这个地址（https://github.com/chukong/cocos-reader/tree/master/Cocos-2.1/reader/cocos2d/cocos）下载新的cocos-reader。我们公司这个格式的动画用的不多，直接替换成其他格式动画了 
+三、Label
+	2. void setWidth(unsigned int) 修改为 void setWidth(float width)参数发生变化不是重点。旧引勤不会改变节点的宽。新引勤会改变Label的大小，导致位置显示错误。位置设置时建议使用左侧为锚点可以兼容新旧版本。PS：新引擎添加Label自动缩放、超出设定长度截取 等模式。
+四、Node::ignoreAnchorPointForPosition() 已经被弃用 ，使用Node::setIgnoreAnchorPointForPosition()替代。
+五、TableView
+    1.创建TableView时注册每一个Cell块的大小。例如创建一个宽100，高70 的Cell块。 registerScriptHandler(cellSizeForTable,cc.TABLECELL_SIZE_FOR_INDEX)
+    function cellSizeForTable(table, idx)
+        --这旧引擎返回的是每一个Cell块的高, 宽   PS:反人类的设计(lua绑定C++环节导致的， 老引擎C++部分也返回（宽，高）)
+        return  70,100  
+
+        --新引擎对反人类的BUG做出修改 返回宽高
+        return 100, 70
+    end
+六、ScrollView
+    self._pScrollView:addEventListener(handler(self,self.onScrollFishMap))
+    function FishHallFishingAwardList:onScrollFishMap( sender, eventType )
+        if eventType == ccui.ScrollviewEventType.scrolling then 
+            coroutine.resume(coAwardMap)
+        end 
+    end
+    上述函数注册时旧引擎会自动触发一次 eventType 为 ccui.ScrollviewEventType.scrolling的事件。
+    新引擎注册时不会抛出该事件，所以依赖该事件的回调函数少调用一次。
+七、SimpleAudioEngine
+    LUA播放背景音乐调用cc.SimpleAudioEngine:getInstance():playMusic(path, loop)； android背景音乐没有声音
+    新版本引擎需要再添加以下函数否则没有声音。默认音量Volume = 0.0  
+    cc.SimpleAudioEngine:getInstance():setMusicVolume(float fVolume)
+八、EditBox
+    1.输入框默认显示字体较大 需要调用下列函数重新设置大小 nFontSize 默认字体大小
+    editBox:setPlaceholderFontSize(nFontSize)

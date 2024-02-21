@@ -1,0 +1,139 @@
+//
+//  AppEvent.h
+//  GouJi
+//
+//  Created by 曾琪 on 14-9-26.
+//
+//
+//
+// EVT view层发送的事件名前缀
+// ACK 网络层或者逻辑层返回或相应的事件名前缀
+//
+#pragma once
+
+#define CONN_FAILED    "CONN_FAILED" // 连接失败
+
+#define EVT_REGISTER    "EVT_REGISTER"  // 注册
+#define ACK_REGISTER    "ACK_REGISTER"  // 注册返回消息
+
+#define EVT_LOGIN    "EVT_LOGIN"  // 登录
+#define ACK_LOGIN    "ACK_LOGIN"  // 登录返回信息
+#define LOGIN_SUCCESS   "LOGIN_SUCCESS" // 登录成功，跳转到大厅界面
+
+#define EVT_CLOSE_REGISTE_LAYER  "EVT_CLOSE_REGISTE_LAYER"
+#define REGISTER_SUCCESS  "REGISTER_SUCCESS" //注册成功，跳转到登录界面
+
+#define BUTTONS_BACK "BUTTONS_BACK" // 恢复按钮点击效果
+
+
+#define EVT_MATCH    "EVT_MATCH"  // 匹配
+#define EVT_MATCH_STOP "EVT_MATCH_STOP" //停止匹配
+#define EVT_MATCH_SUCESS "EVT_MATCH_SUCESS" //匹配成功
+
+#define ACK_MATCH    "ACK_MATCH"  // 匹配返回消息
+
+#define EDIT_HEAD "EDIT_HEAD" //更换头像
+#define CHOOSE_DONE "CHOOSE_DONE"//编辑完成
+#define NOT_CHOOSE "NOT_CHOOSE" //取消
+#define CLICK_DONE "CLICK_DONE" //触摸头像
+#define EVT_EDIT_HEAD "EVT_EDIT_HEAD" //修改头像
+#define ACK_EDIT_HEAD "ACK_EDIT_HEAD" //确认修改头像
+#define EVT_EDIT_HEAD_SUCCESS "EVT_EDIT_HEAD_SUCCESS" //成功修改头像
+#define EVT_EDIT_USER_NAME "EVT_EDIT_USER_NAME" //修改名字
+#define ACK_EXIT_USER_NAME "ACK_EXIT_USER_NAME"
+#define EDIT_NAME_SUCCESS "EDIT_NAME_SUCCESS"
+
+#define  EVT_RANDING_LIST "EVT_RANDING_LIST" //获取排行榜
+#define  ACK_RANDING_LIST "ACK_RANDING_LIST" //获取排行榜
+#define  RCV_RANDING "RCV_RANDING" // 保存排行榜
+
+#define EVT_CLICK_CHESS_BOARD "EVT_CLICK_CHESS_BOARD" //点击屏幕落子
+#define EVT_PLACE_A_STONE "EVT_PLACE_A_STONE" //落子
+#define ACK_PLACE_A_STONE "ACK_PLACE_A_STONE" //落子
+#define EVT_PLACE_A_STONE_SUCCESS "EVT_PLACE_A_STONE_SUCCESS" //接受落子成功
+#define EVT_GAME_OVER "EVT_GAME_OVER" //游戏结束
+#define ACK_CREATE_GAME "ACK_CREATE_GAME"  //房间创建成功
+
+#define EVT_EXIT_GAME "EVT_EXIT_GAME" //用户退出游戏
+#define ACK_EXIT_GAME "ACK_EXIT_GAME" //用户退出游戏
+
+#define  EVT_GET_USER_INFO "EVT_GET_USER_INFO" //获取用户信息
+#define  ACK_GET_USER_INFO  "ACK_GET_USER_INFO" //返回用户信息
+#define GET_USER_INFO_SUCCESS "GET_USER_INFO_SUCCESS"  // 成功获取用户信息
+
+#define REQ_ASK_USER_UNDO_CHESS "REQ_ASK_USER_UNDO_CHESS"  // 询问用户是否同意对手悔棋的消息
+#define ACK_ASK_USER_UNDO_CHESS "ACK_ASK_USER_UNDO_CHESS"  //确认是否同意对手悔棋的消息
+
+
+#define ASK_USER_UNDO_CHESS "ASK_USER_UNDO_CHESS"  // 询问用户是否同意对手悔棋的消息
+
+#define EVT_UNDO_CHESS_WAIT "EVT_UNDO_CHESS_WAIT" //悔棋等待
+#define EVT_UNDO_CHESS_SUCCESS "EVT_UNDO_CHESS_SUCCESS" //悔棋成功
+#define EVT_UNDO_CHESS_FAIL "EVT_UNDO_CHESS_FAIL" //悔棋失败
+#define REMOVE_WAIT_ACK_LAYER "REMOVE_WAIT_ACK_LAYER" //移除ack layer
+#define REMOVE_LAYER "REMOVE_LAYER" //移除一个layer
+
+#define  EVT_GET_HISTORY "EVT_GET_HISTORY" //获取历史记录
+#define  ACK_GET_HISTORY "ACK_GET_HISTORY" //返回历史记录
+#define RCV_HISTORY "RCV_HISTORY" //保存历史记录
+
+#define EVT_EXIT_ACCOUNT "EVT_EXIT_ACCOUNT" //退出账号
+#define EVT_DUPLICATE_LOGINS "EVT_DUPLICATE_LOGINS" //账号异地登录
+#define EVT_REPLACE_LOGIN "EVT_REPLACE_LOGIN" //异地登录后回到登录界面
+
+#define EVT_CHAT "EVT_CHAT" //聊天
+#define ACK_CHAT "ACK_CHAT"//得到聊天消息
+#define ACK_CHAT_MESS "ACK_CHAT_MESS" //拿到经过服务端处理的消息
+
+//继续游戏
+#define EVT_MSGID_CONTINUE_GAME "EVT_MSGID_CONTINUE_GAME" //发送继续游戏的请求
+#define EVT_ACK_CONTINUE_GAME "EVT_ACK_CONTINUE_GAME" //收到继续游戏的响应
+#define ACK_WAIT_CONTINUE_GAME  "ACK_WAIT_CONTINUE_GAME" //等待对方同意继续游戏
+#define EVT_REQ_ASK_CONTINUE_GAME "EVT_REQ_ASK_CONTINUE_GAME" //收到一个询问是否同意悔棋的消息
+#define ASK_CONTINUE_GAME "ASK_CONTINUE_GAME" //弹出询问layer
+#define ACK_REQ_ASK_CONTINUE_GAME "ACK_REQ_ASK_CONTINUE_GAME" //发送同意或拒绝游戏的ack
+#define ACK_REFUSE_CONTINUE_GAME "ACK_REFUSE_CONTINUE_GAME" //拒绝继续游戏
+
+//好友
+#define EVT_GET_FRIEND_LIST "EVT_GET_FRIEND_LIST" //获取好友列表
+#define ACK_GET_FRIEND_LIST "ACK_GET_FRIEND_LIST" //返回好友列表
+#define RCV_FRIEND_LIST "RCV_FRIEND_LIST"//保存好友列表
+#define EVT_SEARCH_FRIEND "EVT_SEARCH_FRIEND" //请求查找好友
+#define ACK_SEARCH_FRIEND "ACK_SEARCH_FRIEND" //确认查找结果
+#define SEARCH_FRIEND_FAIL "SEARCH_FRIEND_FAIL" //查找失败
+#define EVT_ADD_FRIEND "EVT_ADD_FRIEND" //添加好友请求
+#define ACK_ADD_FRIEND "ACK_ADD_FRIEND" //添加好友请求已发送
+#define IS_FRIEND "IS_FRIEND" //已经是好友了
+#define NOT_EXIST "NOT_EXIST" //不存在该用户
+#define ADD_FRIEND_SUCCESS "ADD_FRIEND_SUCCESS" // 添加好友请求已发送（更改界面）
+#define EVT_NEW_FRIEND "EVT_NEW_FRIEND" //收到了N个好友请求
+#define EVT_UPDATE_WAIT_LIST "EVT_UPDATE_WAIT_LIST" //请求更新好友请求列表
+#define ACK_UPDATE_WAIT_LIST "ACK_UPDATE_WAIT_LIST" //得到好友更新列表请求
+#define RCV_WAIT_FRIEND_LIST "RCV_WAIT_FRIEND_LIST"//保存待同意好友列表
+#define EVT_IS_AGREE_FRIEND "EVT_IS_AGREE_FRIEND" //是否同意好友请求
+#define ACK_IS_AGREE_FRIEND "ACK_IS_AGREE_FRIEND" //确认是否同意好友请求
+#define EVT_DELETE_FRIEND "EVT_DELETE_FRIEND" //删除好友
+#define ACK_DELETE_FRIEND "ACK_DELETE_FRIEND" //删除好友的返回信息
+#define EVT_QUIT_SEARCH "EVT_QUIT_SEARCH" //退出搜索好友
+#define ADD_FRIEND_COMFIRM "ADD_FRIEND_COMFIRM" // 确定添加好友
+#define SEARCH_FRIEND_SUCCESS "SEARCH_FRIEND_SUCCESS"   // 搜索好友成功
+
+#define EVT_INVITE_FRIEND_GAME "EVT_INVITE_FRIEND_GAME" //邀请好友游戏
+#define ACK_INVITE_FRIEND_GAME "ACK_INVITE_FRIEND_GAME" //邀请好友游戏
+#define WINDOW_INVITE_FRIEND_GAME "WINDOW_INVITE_FRIEND_GAME" //弹出一个弹窗等待对手同意
+#define REMOVE_WAIT_INVITE_FRIEND_GAME_LAYER "REMOVE_WAIT_INVITE_FRIEND_GAME_LAYER" //移除等待窗口
+#define EVT_REQ_ASK_INVITE_FRIEND_GAME "EVT_REQ_ASK_INVITE_FRIEND_GAME" //询问是否同意
+#define WINDOW_REQ_ASK_INVITE_FRIEND_GAME "WINDOW_REQ_ASK_INVITE_FRIEND_GAME" //弹出同意或者拒绝的窗口
+#define EVT_ACK_REQ_ASK_INVITE_FRIEND_GAME "EVT_ACK_REQ_ASK_INVITE_FRIEND_GAME"  //发送同意或拒绝
+#define EVT_ACK_REFUSE_INVITE_FRIEND_GAME "EVT_ACK_REFUSE_INVITE_FRIEND_GAME"  //收到拒绝的消息
+// 设置
+#define SETUP_COMFIRM "SETUP_COMFIRM" // 设置完成
+
+#define DELETE_FRIEND_SUCCESS "DELETE_FRIEND_SUCCESS" // 删除好友成功
+
+//购买
+#define EVT_BUY  "EVT_BUT" //购买事件
+#define ACK_BUY "ACK_BUY" //确认购买
+#define EVT_BUY_SUCCESS "EVT_BUY_SUCCESS" //购买成功
+#define UPDATE_COINS "UPDATE_COINS" // 更新金币
+

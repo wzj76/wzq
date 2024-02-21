@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:../service/wzqgame/wzqgame.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../service/wzqroom/wzqroom.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../service/wzqconn/wzqconn.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../service/wzqauth/wzqauth.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../../duole_service_base/projects_xcode/servicebase.xcodeproj">
+   </FileRef>
+</Workspace>

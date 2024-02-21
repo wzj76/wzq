@@ -1,0 +1,90 @@
+v1.0.0_beta15 2022-10-10
+-----------------
+- Clientbase：默认启用 bugly_v2；
+- EditBox：优化输入字符过滤方案（iOS）；
+
+v1.0.0_beta14 2022-10-01
+-----------------
+- EditBox：修复苹果 iOS14 及以下版本无法正常输入的BUG；
+
+v1.0.0_beta13 2022-09-20
+-----------------
+- EditBox：同步安卓字符过滤处理；(iOS)
+- Jenkins：release 模式打包后，自动向当前分支提交 app.properties 文件；
+- Clientbase：修复两处代码隐患（内存泄漏、指针非空判断）；
+
+v1.0.0_beta12 2022-08-11
+-----------------
+- Clientbase: 新增 version.json, 描述基类库及其相关组件版本信息；
+- Build Tools: 打包脚本自动更新基类库版本、SDK版本信息；
+- Build Tools: 新增 app.properties 属性文件描述业务工程依赖组件信息（只读，脚本维护）；
+
+v1.0.0_beta11 2022-08-09
+-----------------
+- Cocos2d-x: "onStop 后引发的黑屏问题" 相关修改引发崩溃，代码回退；
+
+v1.0.0_beta10 2022-08-02
+-----------------
+- Cocos2d-x: 修复 WebSocket 断线重连引发的崩溃问题；
+
+v1.0.0_beta9 2022-07-26
+-----------------
+- Cocos2d-x: ArmatureData异步加载导致的线程竞争问题修正；
+- Cocos2d-x: tolua、luasocket 编译脚本修正，头文件路径：luajit 调整为 lua;
+- Cocos2d-x: 修复 onStop 后引发的黑屏问题；
+- 新增 Lua 接口组件，支持 Lua 对一些 Native 组件的调用；
+- 新增 bugly_v2组件，Bugly版本更新为：Android 4.0.4, iOS 2.5.9（基类库默认使用旧版bugly）；
+- Jenkins: 变更包上传地址；
+- Build Tools: Android 打包时针对性清理 Gradle 缓存的多乐组件相关内容，解决同版本更新问题；
+
+v1.0.0_beta8 2022-04-29
+-----------------
+- Cocos2d-x: 去除加速度传感器相关功能；(Android)
+- ImagePicker: 修复图片选择器里快速且多次点击图片引起崩溃的问题；(iOS)
+
+v1.0.0_beta7 2022-04-20
+-----------------
+- 新增 duole_clientbase_libs.xcodeproj 文件，在 Xcode 项目中增加此文件即可引用基类库；
+- 新增 CMakeLists.txt 文件，Android工程通过此文件引用基类库；
+- Cocos2d-x: 默认声音播放模式调整为允许第三方App播放声音；
+- Cocos2d-x: Webview组件Lua绑定接口完善；
+
+v1.0.0_beta6 2022-03-18
+-----------------
+- 新增 appconfig.json 配置文件，增加对应的加密及解析模块；
+- 新增 channels.txt 配置文件，统一管理渠道信息；
+- Android打包工具链优化，统一各项目打包行为；
+- Jenkins: 脚本优化，默认使用最新版本基类库；
+
+v1.0.0_beta5 2022-02-23
+-----------------
+- iOS审核: 敏感词修改；
+- rapidjson: 非Object对象调用HasMember方法引发崩溃，增加IsObject()前置判定；
+- Jenkins: 集群打包脚本支持将 apk 自动上传到包管理平台；
+
+v1.0.0_beta4 2022-01-24
+-----------------
+- 修正基类库相关组件编译脚本，统一 NDK 目录和版本；
+- Jenkins：支持集群方式部署，增加相关脚本及作业；
+
+v1.0.0_beta3 2022-01-11
+-----------------
+- Cocos2d-x: 支持以静态库方式应用到项目；
+- Cookie优化: Android 支持多个Cookie读写；线程安全；
+- RichText: 修复零宽字符引发的崩溃；
+- unzip: 修复 Android 64位无法解压带密码的zip文件（同步zlib官方解决方案）;
+- 适配全面屏黑边问题；
+- webview: 回退按钮统一放置到右上角；uiwebview => wkwebview；
+- 敏感词修改；
+- 增加 Jenkins 相关脚本及作业；
+- 增加符号文件处理脚本；
+- bugfix: 修复 Android 4.4 启动崩溃的问题；
+
+
+v1.0.0_beta1 2021-11-18 
+-----------------
+- 增加 cocos2d-x-3.17.2，对部分功能进行定制和增强；
+- 增加 gamebase 模块，静态库方式链接；
+- 增加 external 模块，包含 protobuf、iconv ，静态库方式链接；
+- 增加 third-sdks 模块，包含 bugly；
+- 增加 tools 模块，包含通用打包脚本、bugly 符号上传工具及脚本；

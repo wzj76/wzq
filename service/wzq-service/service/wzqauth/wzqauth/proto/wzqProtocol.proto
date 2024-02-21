@@ -1,0 +1,283 @@
+//保持连接
+message REQHold {
+}
+
+//心跳包应答
+message ACKHold {
+	optional int32 result_id = 1;   //心跳包返回结果
+}
+//msg 消息封装
+message MsgPackage{
+    optional int64 msg_id  = 1 ;
+    optional int64 seq_id  = 2 ;
+    optional int64 user_id = 3;
+    optional bytes msg     = 4 ;
+    optional bytes src     = 5 ;
+    optional int64 clientid = 6 ;
+}
+
+//注册
+message REQRegister
+{
+    optional bytes account = 1;
+    optional bytes passwd  = 2;
+}
+
+message ACKRegister
+{
+    optional int32 code   = 1;
+    optional bytes result = 2;
+}
+
+//登录
+message REQLogin
+{
+    optional bytes account = 1;
+    optional bytes passwd = 2;
+}
+
+message ACKLogin
+{
+    optional int32 code = 1;
+    optional UserInfo userinfo = 2;
+}
+message UserInfo
+{
+    optional int32 id = 1;
+    optional bytes username = 2;
+    optional int32 wintimes = 3;
+    optional int32 losetimes = 4;
+    optional int32 score = 5;
+    optional int32 level = 6;
+    optional int32 xp = 7;
+    optional int32 head_id = 8;
+    optional bool is_online = 9;
+    optional int32 coins = 10;
+    
+    message Prop {
+        optional int32 id = 1;
+        optional int32 quantity = 2;
+    }
+    
+    repeated Prop props = 11;
+    optional bytes account = 12;
+}
+
+// 获取登录用户的信息
+message REQGetUserInfo
+{
+    required int32 user_id = 1;
+}
+message ACKGetUserInfo
+{
+    required int32 result_id = 1;
+    required UserInfo userinfo = 2;
+}
+
+
+
+//编辑头像请求消息
+message REQEditHead {
+    optional int32 head_num=1;
+    optional int32 user_id=2;
+}
+
+message ACKEditHead{
+    optional int32 code=1;
+}
+
+//修改名字
+message REQEditUserName
+{
+    required bytes username=1;
+    required int32 user_id=2;
+    optional int32 item_id = 3; //改名卡道具的id，如果为0则表示此次改名不使用改名卡
+}
+
+message ACKEditUserName
+{
+    required int32 code=1;
+    required bytes username=2;
+}
+
+
+//用于获取排行榜
+message REQGetRandingList
+{
+    required bytes req_msg=1;
+    optional int32 limit=2;
+    optional int32 offset=3;
+}
+message ACKGetRandingList
+{
+    required int32 code   = 1;
+    required bytes result_msg=2;
+    repeated UserInfo userinfo_list = 3;
+    optional int32 limit=4;
+    optional int32 offset=5;
+}
+
+//用户每次下棋的位置
+message Position {
+    required int32 row = 1;
+    required int32 col = 2;
+}
+// game发给auth服务，用来告诉auth服务哪个user赢了和输了，并记录用户成绩
+message REQGameOver
+{
+    optional int32 winner_id = 1;
+    optional int32 loser_id = 2;
+    optional int32 score = 3;
+    
+    required int32 black_id = 4;
+    required int32 white_id = 5;
+    required bool is_no_winner = 6;
+    required bool is_force_exit = 7;
+    repeated Position black_positions = 8;
+    repeated Position white_positions = 9;
+    required int32 conis = 10;
+    
+}
+
+message REQGetGameHistory
+{
+    required int32 player_id = 1;
+    required int32 limit = 2;
+    required int32 offset = 3;
+}
+message GameInfo
+{
+    required UserInfo enemy_userinfo = 1;
+    required int32 game_id = 2;
+    required int32 winner_id =3;
+    required int32 loser_id = 4;
+    required int32 score = 5;
+    required int32 black_id = 6;
+    required int32 white_id = 7;
+    required bool is_no_winner = 8;
+    required bool is_force_exit = 9;
+    repeated Position black_positions = 10;
+    repeated Position white_positions = 11;
+    required bytes game_time = 12;
+}
+message ACKGetGameHistory
+{
+    required int32 player_id = 1;
+    repeated GameInfo game_info_list = 2;
+}
+
+
+
+//查找这个用户的信息来添加好友
+message REQGetFriendInfo
+{
+    required bytes friend_name = 1;
+    required int32 user_id = 2;
+}
+//发给客户端这个用户的信息
+message ACKGetFriendInfo
+{
+    required UserInfo friendinfo = 1;
+    required bool is_my_friend = 2;  //是否是好友
+    required bool is_exist = 3; //是否搜到这个人
+}
+
+//添加好友的请求
+message REQAddFriend
+{
+    //user_id向 friend_id发出一个加好友的申请
+    //mysql表中存 friend_id ->  user_id
+    
+    required int32 friend_id = 1;
+    required int32 user_id = 2;
+}
+//添加好友的响应
+message ACKAddFriend
+{
+    required int32 code = 1;
+    optional bytes result_msg = 2;
+}
+//告知对方有新的好友申请
+message REQRequestFriend
+{
+    required int32 num = 1;
+    required int32 user_id = 2;
+}
+
+//同意或拒绝好友申请
+message REQIsAgreeFriend
+{
+    // user_id同意或拒绝 friend_id 的好友请求
+    // user_id -> friend_id
+    required int32 user_id = 1;
+    required int32 friend_id = 2;
+    required bool is_agree = 3;
+}
+message ACKIsAgreeFriend
+{
+    required int32 code = 1;
+    required bytes result_msg = 2;
+}
+
+//告知更新好友信息
+message ACKUpdateFriend
+{
+    required int32 user_id = 1;
+    required UserInfo firendinfo = 2;
+}
+
+
+
+//获取好友列表的请求
+message REQFriendsList
+{
+    required int32 user_id = 1;
+}
+message ACKFriendsList
+{
+    repeated UserInfo firendinfo = 1;
+}
+
+//获取好友申请列表
+message REQWaitFriendsList
+{
+    required int32 user_id = 1;
+}
+message ACKWaitFriendsList
+{
+    repeated UserInfo firendinfo = 1;
+    repeated bytes times = 2;
+}
+
+//删除好友的请求
+message REQDeleteFriend
+{
+    required int32 friend_id = 1;
+    required int32 user_id = 2;
+}
+//删除好友的响应
+message ACKDeleteFriend
+{
+    required int32 code = 1;
+    optional bytes result_msg = 2;
+}
+
+
+//请求购买
+message REQBuy
+{
+    required int32 user_id = 1;
+    required int32 item_id = 2;
+    required int32 price = 3;
+    required int32 num = 4;
+}
+
+//购买响应
+message ACKBuy
+{
+    required int32 code = 1;
+    required bytes result_msg = 2;
+    optional int32 item_id = 3;
+    optional int32 price = 4;
+    optional int32 num = 5;
+}

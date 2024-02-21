@@ -1,0 +1,422 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7C21AF232B83552000D68E31 /* RandingList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C21AF212B83552000D68E31 /* RandingList.cpp */; };
+		7C52EE1A2B843A3400B8570D /* ThreadPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C52EE182B843A3400B8570D /* ThreadPool.cpp */; };
+		C83C702F2930862600ADD7E3 /* sampledbpool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C83C702E2930862600ADD7E3 /* sampledbpool.cpp */; };
+		C8CF0BF0292F595B00FD64F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CF0BEF292F595B00FD64F2 /* main.cpp */; };
+		C8CF0BFA292F5AFA00FD64F2 /* AuthService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CF0BF8292F5AFA00FD64F2 /* AuthService.cpp */; };
+		C8FC148029324F2C00C6F7CF /* wzqProtocol.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = C8FC147C29324F2C00C6F7CF /* wzqProtocol.pb.cc */; };
+		C8FC148129324F2C00C6F7CF /* wzqProtocol.proto in Sources */ = {isa = PBXBuildFile; fileRef = C8FC147E29324F2C00C6F7CF /* wzqProtocol.proto */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C8CF0BEA292F595B00FD64F2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		7C21AF212B83552000D68E31 /* RandingList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RandingList.cpp; sourceTree = "<group>"; };
+		7C21AF222B83552000D68E31 /* RandingList.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RandingList.hpp; sourceTree = "<group>"; };
+		7C52EE182B843A3400B8570D /* ThreadPool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadPool.cpp; sourceTree = "<group>"; };
+		7C52EE192B843A3400B8570D /* ThreadPool.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ThreadPool.hpp; sourceTree = "<group>"; };
+		C83C702D2930862600ADD7E3 /* sampledbpool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sampledbpool.h; sourceTree = "<group>"; };
+		C83C702E2930862600ADD7E3 /* sampledbpool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sampledbpool.cpp; sourceTree = "<group>"; };
+		C83C703029308C4D00ADD7E3 /* AppDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDef.h; sourceTree = "<group>"; };
+		C83C70312930E6AE00ADD7E3 /* wzqauth.conf */ = {isa = PBXFileReference; lastKnownFileType = text; path = wzqauth.conf; sourceTree = "<group>"; };
+		C83C70322930E78A00ADD7E3 /* redis.conf */ = {isa = PBXFileReference; lastKnownFileType = text; path = redis.conf; sourceTree = "<group>"; };
+		C8CF0BEC292F595B00FD64F2 /* wzqauth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wzqauth; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8CF0BEF292F595B00FD64F2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		C8CF0BF8292F5AFA00FD64F2 /* AuthService.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AuthService.cpp; sourceTree = "<group>"; };
+		C8CF0BF9292F5AFA00FD64F2 /* AuthService.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AuthService.hpp; sourceTree = "<group>"; };
+		C8FC147C29324F2C00C6F7CF /* wzqProtocol.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wzqProtocol.pb.cc; sourceTree = "<group>"; };
+		C8FC147D29324F2C00C6F7CF /* generate_protocol.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_protocol.sh; sourceTree = "<group>"; };
+		C8FC147E29324F2C00C6F7CF /* wzqProtocol.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = wzqProtocol.proto; sourceTree = "<group>"; };
+		C8FC147F29324F2C00C6F7CF /* wzqProtocol.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wzqProtocol.pb.h; sourceTree = "<group>"; };
+		C8FC148229324F9100C6F7CF /* ProtocolDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolDef.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C8CF0BE9292F595B00FD64F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C8CF0BE3292F595B00FD64F2 = {
+			isa = PBXGroup;
+			children = (
+				C8CF0BEE292F595B00FD64F2 /* wzqauth */,
+				C8CF0BED292F595B00FD64F2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C8CF0BED292F595B00FD64F2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C8CF0BEC292F595B00FD64F2 /* wzqauth */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C8CF0BEE292F595B00FD64F2 /* wzqauth */ = {
+			isa = PBXGroup;
+			children = (
+				C8FC148229324F9100C6F7CF /* ProtocolDef.h */,
+				C83C703029308C4D00ADD7E3 /* AppDef.h */,
+				C83C702E2930862600ADD7E3 /* sampledbpool.cpp */,
+				C83C702D2930862600ADD7E3 /* sampledbpool.h */,
+				C8CF0BF6292F59D700FD64F2 /* conf */,
+				C8CF0BF7292F59D700FD64F2 /* proto */,
+				C8CF0BEF292F595B00FD64F2 /* main.cpp */,
+				C8CF0BF8292F5AFA00FD64F2 /* AuthService.cpp */,
+				C8CF0BF9292F5AFA00FD64F2 /* AuthService.hpp */,
+				C83C70312930E6AE00ADD7E3 /* wzqauth.conf */,
+				7C21AF212B83552000D68E31 /* RandingList.cpp */,
+				7C21AF222B83552000D68E31 /* RandingList.hpp */,
+				7C52EE182B843A3400B8570D /* ThreadPool.cpp */,
+				7C52EE192B843A3400B8570D /* ThreadPool.hpp */,
+			);
+			path = wzqauth;
+			sourceTree = "<group>";
+		};
+		C8CF0BF6292F59D700FD64F2 /* conf */ = {
+			isa = PBXGroup;
+			children = (
+				C83C70322930E78A00ADD7E3 /* redis.conf */,
+			);
+			path = conf;
+			sourceTree = "<group>";
+		};
+		C8CF0BF7292F59D700FD64F2 /* proto */ = {
+			isa = PBXGroup;
+			children = (
+				C8FC147D29324F2C00C6F7CF /* generate_protocol.sh */,
+				C8FC147C29324F2C00C6F7CF /* wzqProtocol.pb.cc */,
+				C8FC147F29324F2C00C6F7CF /* wzqProtocol.pb.h */,
+				C8FC147E29324F2C00C6F7CF /* wzqProtocol.proto */,
+			);
+			path = proto;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C8CF0BEB292F595B00FD64F2 /* wzqauth */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8CF0BF3292F595B00FD64F2 /* Build configuration list for PBXNativeTarget "wzqauth" */;
+			buildPhases = (
+				C8CF0BE8292F595B00FD64F2 /* Sources */,
+				C8CF0BE9292F595B00FD64F2 /* Frameworks */,
+				C8CF0BEA292F595B00FD64F2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = wzqauth;
+			productName = authservice;
+			productReference = C8CF0BEC292F595B00FD64F2 /* wzqauth */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C8CF0BE4292F595B00FD64F2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					C8CF0BEB292F595B00FD64F2 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = C8CF0BE7292F595B00FD64F2 /* Build configuration list for PBXProject "wzqauth" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C8CF0BE3292F595B00FD64F2;
+			productRefGroup = C8CF0BED292F595B00FD64F2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C8CF0BEB292F595B00FD64F2 /* wzqauth */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C8CF0BE8292F595B00FD64F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8FC148129324F2C00C6F7CF /* wzqProtocol.proto in Sources */,
+				C8CF0BF0292F595B00FD64F2 /* main.cpp in Sources */,
+				C8FC148029324F2C00C6F7CF /* wzqProtocol.pb.cc in Sources */,
+				7C21AF232B83552000D68E31 /* RandingList.cpp in Sources */,
+				7C52EE1A2B843A3400B8570D /* ThreadPool.cpp in Sources */,
+				C83C702F2930862600ADD7E3 /* sampledbpool.cpp in Sources */,
+				C8CF0BFA292F5AFA00FD64F2 /* AuthService.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C8CF0BF1292F595B00FD64F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C8CF0BF2292F595B00FD64F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C8CF0BF4292F595B00FD64F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../duole_service_base/servicebase/src",
+					"$(SRCROOT)/../../../duole_service_base/servicebase/src/mcgcommon",
+					"$(SRCROOT)/../../../duole_service_base/servicebase/src/mcgservice",
+					"$(SRCROOT)/../../../duole_service_base/servicebase/src/mcgutil",
+					"$(SRCROOT)/../../../duole_service_base/servicebase/src/mcghttp",
+					"$(SRCROOT)/../../../duole_service_base/external/libwebsockets/include/mac",
+					"/usr/local/Cellar/mysql-client@5.7/5.7.42/include",
+					/usr/local/Cellar/log4cplus/2.1.1/include,
+					/usr/local/Cellar/lua/5.4.6/include/lua,
+					/usr/local/Cellar/libevent/2.1.12_1/include,
+					/usr/local/include,
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(SRCROOT)/../../../duole_service_base/external/libwebsockets/prebuilt/mac";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../duole_service_base/servicebase/prebuilt/mac",
+					"$(SRCROOT)/../../../duole_service_base/external/libwebsockets/prebuilt/mac",
+					/usr/local/Cellar/libevent/2.1.12_1/lib,
+					/usr/local/Cellar/jsoncpp/1.9.5/lib,
+					/usr/local/Cellar/hiredis/1.2.0/lib,
+					/usr/local/Cellar/log4cplus/2.1.1/lib,
+					"/usr/local/Cellar/ossp-uuid/1.6.2_2/lib",
+					/usr/local/opt/openssl/lib,
+					"/usr/local/Cellar/openssl@1.1/1.1.1w/lib",
+					"/usr/local/Cellar/mysql-client@5.7/5.7.42/lib",
+					/usr/local/Cellar/lua/5.4.6/lib,
+					/usr/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-lservice_base",
+					"-llua",
+					"-levent",
+					"-ljsoncpp",
+					"-lwebsockets",
+					"-lhiredis",
+					"-lcrypto",
+					"-lprotobuf",
+					"-llog4cplus",
+					"-lmysqlclient",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C8CF0BF5292F595B00FD64F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../duole_service_base/servicebase/src",
+					"$(SRCROOT)/../../../duole_service_base/servicebase/src/mcgcommon",
+					"$(SRCROOT)/../../../duole_service_base/servicebase/src/mcgservice",
+					"$(SRCROOT)/../../../duole_service_base/servicebase/src/mcgutil",
+					"$(SRCROOT)/../../../duole_service_base/servicebase/src/mcghttp",
+					"$(SRCROOT)/../../../duole_service_base/external/libwebsockets/include/mac",
+					"/usr/local/Cellar/mysql-client@5.7/5.7.42/include",
+					/usr/local/Cellar/log4cplus/2.1.1/include,
+					/usr/local/Cellar/lua/5.4.6/include/lua,
+					/usr/local/Cellar/libevent/2.1.12_1/include,
+					/usr/local/include,
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(SRCROOT)/../../../duole_service_base/external/libwebsockets/prebuilt/mac";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../duole_service_base/servicebase/prebuilt/mac",
+					"$(SRCROOT)/../../../duole_service_base/external/libwebsockets/prebuilt/mac",
+					/usr/local/Cellar/libevent/2.1.12_1/lib,
+					/usr/local/Cellar/jsoncpp/1.9.5/lib,
+					/usr/local/Cellar/hiredis/1.2.0/lib,
+					/usr/local/Cellar/log4cplus/2.1.1/lib,
+					"/usr/local/Cellar/ossp-uuid/1.6.2_2/lib",
+					/usr/local/opt/openssl/lib,
+					"/usr/local/Cellar/openssl@1.1/1.1.1w/lib",
+					"/usr/local/Cellar/mysql-client@5.7/5.7.42/lib",
+					/usr/local/Cellar/lua/5.4.6/lib,
+					/usr/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-lservice_base",
+					"-llua",
+					"-levent",
+					"-ljsoncpp",
+					"-lwebsockets",
+					"-lhiredis",
+					"-lcrypto",
+					"-lprotobuf",
+					"-llog4cplus",
+					"-lmysqlclient",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C8CF0BE7292F595B00FD64F2 /* Build configuration list for PBXProject "wzqauth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8CF0BF1292F595B00FD64F2 /* Debug */,
+				C8CF0BF2292F595B00FD64F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C8CF0BF3292F595B00FD64F2 /* Build configuration list for PBXNativeTarget "wzqauth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8CF0BF4292F595B00FD64F2 /* Debug */,
+				C8CF0BF5292F595B00FD64F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C8CF0BE4292F595B00FD64F2 /* Project object */;
+}

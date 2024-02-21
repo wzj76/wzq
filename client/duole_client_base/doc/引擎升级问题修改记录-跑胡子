@@ -1,0 +1,15 @@
+引擎升级问题修改记录
+
+一、Scale9Sprite
+问题：调用setTexture后大小会恢复成原始图片大小；
+修改：暂时通过先取出精灵尺寸，设置纹理之后再重新设置尺寸来处理；
+
+二、EditBox
+1.问题：组件InputMode为ANY会导致输入框默认常驻文字展示靠上；
+  修改：InputMode改为SINGLE_LINE即可；
+2.问题：输入框默认的文字展示变大；
+  修改：调用setPlaceholderFontSize设置常驻字体大小；
+
+三、setFlippedX
+问题：设置横向翻转后精灵没有按预期的展示位置展示；
+修改：setFlippedX方法不会根据设置的锚点翻转，而是会根据中心点翻转，重新调整精灵位置即可；

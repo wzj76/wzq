@@ -1,0 +1,10 @@
+mac 安装 openssl 1.0.2
+
+1.下载文件
+wget https://github.com/tebelorg/Tump/releases/download/v1.0.0/openssl.rb
+
+2.安装：
+在当前目录执行 即可安装
+brew install openssl.rb
+
+

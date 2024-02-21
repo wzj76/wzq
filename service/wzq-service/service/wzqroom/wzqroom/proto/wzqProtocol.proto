@@ -1,0 +1,138 @@
+//msg 消息封装
+message MsgPackage{
+    optional int64 msg_id  = 1 ;
+    optional int64 seq_id  = 2 ;
+    optional int64 user_id = 3;
+    optional bytes msg     = 4 ;
+    optional bytes src     = 5 ;
+    optional int64 clientid = 6 ;
+}
+
+
+
+message UserInfo
+{
+    optional int32 id = 1;
+    optional bytes username = 2;
+    optional int32 wintimes = 3;
+    optional int32 losetimes = 4;
+    optional int32 score = 5;
+    optional int32 level = 6;
+    optional int32 xp = 7;
+    optional int32 head_id = 8;
+}
+
+
+//匹配消息
+//用户发送一个req_msg = "req_match_start"的请求给room表示匹配开始，并附带上自己的信息
+//发送一个req_msg = "req_match_stop"的请求给room表示匹配取消，此时也要带上自己的信息，room无法定位到该用户
+message REQRoom
+{
+    required bytes req_msg=1;
+    optional UserInfo userinfo = 2;
+}
+//匹配的应答
+//发送code = 0 , result_msg = "ack_match_sucess"的请求表示匹配成功，
+//userinfo是对手的信息,black_id 和 white_id是黑棋和白棋选手的id
+message ACKRoom
+{
+    required int32 code   = 1;
+    required bytes result_msg=2;
+    optional UserInfo userinfo = 3;
+    optional int32 black_id = 4;
+    optional int32 white_id = 5;
+    optional int32 board_row = 6; //棋盘的行
+    optional int32 board_col = 7; //棋盘的列
+}
+
+
+
+
+// 创建房建的请求，room服务匹配到两个人后，会向这两个人发送ACKRoom，里面有对手的信息以及棋盘信息
+// 然后room会给game服务发送一个创建game的请求
+message REQCreatGame
+{
+    required bytes req_msg = 1;
+    optional UserInfo userinfo_player1 = 2;
+    optional int32 player1_clientid = 3; //player的clientid用户conn与客户端通信
+    optional UserInfo userinfo_player2 = 4;
+    optional int32 player2_clientid = 5;
+    optional int32 black_id = 6;
+    optional int32 white_id = 7;
+    optional int32 board_row = 8; //棋盘的行
+    optional int32 board_col = 9; //棋盘的列
+}
+//创建成功的ack,创建成功房间后，game服务向两个人发送 create_game_sucess 的消息，两个人可以正式进入游戏
+message ACKCreatGame
+{
+    required int32 code = 1;
+    required bytes result_msg = 2;
+    required int32 room_id = 3;
+    required int32 black_id = 4;
+    required int32 white_id = 5;
+}
+
+// 用户的操作消息
+message REQAction
+{
+    required bytes req_msg = 1;   //下棋的操作是 put_chess 悔棋的操作是 undo_chess
+    required int32 table_id = 2;
+    required int32 action_id = 3;  //下棋的用户id
+    optional int32 action_board_row = 4; //要操作的棋盘的行和列
+    optional int32 action_board_col = 5;
+}
+
+// 对用户的操作消息的反馈
+message ACKAction
+{
+    required bytes result_msg = 1; //下棋成功 put_chess_sucess   悔棋成功undo_chess_sucess
+    required int32 action_id = 2;
+    optional int32 action_board_row = 3; //要操作的棋盘的行和列
+    optional int32 action_board_col = 4;
+    optional bool is_win = 5; //是否有胜利者
+    optional int32 win_id = 6;
+    optional int32 lose_id = 7;
+}
+
+//用户强制退出
+message REQForcExit
+{
+    optional int32 user_id = 1;
+}
+
+
+//A邀请B继续游戏
+message REQInviteFriendGame
+{
+    optional UserInfo userinfo = 1;//A的信息
+    required int32 friend_id = 2; //B的id
+}
+//room发给A的回复
+message ACKInviteFriendGame
+{
+    required int32 code = 1;
+    required bytes result_msg = 2;
+}
+
+//询问B是否同意继续游戏
+message REQAskInviteFriendGame
+{
+    optional UserInfo friend_info = 1;//A的信息
+    required int32 user_id = 2; //B的id
+}
+
+//B发来的消息
+message ACKAskInviteFriendGame
+{
+    //是否同意邀请
+    required bool is_agree_invite_game = 1;
+    optional UserInfo userinfo = 2;//B的信息
+    required int32 friend_id = 3; //A的id
+    optional bytes result_msg = 4;
+}
+//发给A的拒绝邀请的信息
+message ACKRefuseInviteFriendGame
+{
+    required int32 code = 1;
+    required bytes result_msg = 2;
+}

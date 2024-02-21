@@ -1,0 +1,10 @@
+# Mac OS hidden files
+**/.DS_Store
+# Xcode build files
+**/xcuserdata/
+# Android Studio
+**/.idea/
+**/.cxx/
+**/**.iml
+# dists
+code/proj.android/dists/

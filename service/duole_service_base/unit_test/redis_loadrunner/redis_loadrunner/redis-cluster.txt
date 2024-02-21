@@ -1,0 +1,26 @@
+Redis-Cluster 4.0 集群版本：
+
+Please Enter Command: c-rpush  s-blpop  q-quit i-redis config
+c
+Input rpush Count:
+10000
+rpush : [10000  4588 0.4588]
+
+Please Enter Command: c-rpush  s-blpop  q-quit i-redis config
+s
+Input blpop Count:
+10000
+blpop : [10000  4955 0.4955]
+
+
+Please Enter Command: c-rpush  s-blpop  q-quit i-redis config
+c
+Input rpush Count:
+100000
+rpush : [100000  45788 0.4579]
+
+Please Enter Command: c-rpush  s-blpop  q-quit i-redis config
+s
+Input blpop Count:
+100000
+blpop : [100000  45658 0.4566]

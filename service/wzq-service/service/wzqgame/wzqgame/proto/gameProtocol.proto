@@ -1,0 +1,195 @@
+//保持连接
+message REQHold {
+}
+//心跳包应答
+message ACKHold {
+	optional int32 result_id = 1;   //心跳包返回结果
+}
+//msg 消息封装
+message MsgPackage{
+    optional int64 msg_id  = 1 ;
+    optional int64 seq_id  = 2 ;
+    optional int64 user_id = 3 ;
+    optional bytes msg     = 4 ;
+    optional bytes src     = 5 ;
+    optional int64 clientid = 6 ;
+}
+
+
+message UserInfo
+{
+    optional int32 id = 1;
+    optional bytes username = 2;
+    optional int32 wintimes = 3;
+    optional int32 losetimes = 4;
+    optional int32 score = 5;
+    optional int32 level = 6;
+    optional int32 xp = 7;
+    optional int32 head_id = 8;
+}
+
+
+// 创建房建的请求，room服务匹配到两个人后，会向这两个人发送ACKRoom，里面有对手的信息以及棋盘信息
+// 然后room会给game服务发送一个创建game的请求
+message REQCreatGame
+{
+    required bytes req_msg = 1;
+    optional UserInfo userinfo_player1 = 2;
+    optional int32 player1_clientid = 3; //player的clientid用户conn与客户端通信
+    optional UserInfo userinfo_player2 = 4;
+    optional int32 player2_clientid = 5;
+    optional int32 black_id = 6;
+    optional int32 white_id = 7;
+    optional int32 board_row = 8; //棋盘的行
+    optional int32 board_col = 9; //棋盘的列
+}
+//创建成功的ack,创建成功房间后，game服务向两个人发送 create_game_sucess 的消息，两个人可以正式进入游戏
+message ACKCreatGame
+{
+    required int32 code = 1;
+    required bytes result_msg = 2;
+    required int32 room_id = 3;
+    required int32 black_id = 4;
+    required int32 white_id = 5;
+    required int32 score = 6;
+    required int32 coins = 7;//这场对局的金币数量
+}
+
+// 用户的操作消息
+message REQAction
+{
+    required bytes req_msg = 1;   //下棋的操作是 put_chess 悔棋的操作是 undo_chess
+    required int32 table_id = 2;
+    required int32 action_id = 3;  //下棋的用户id
+    optional int32 action_board_row = 4; //要操作的棋盘的行和列
+    optional int32 action_board_col = 5;
+    optional int32 remain_time = 6; //悔棋时的剩余时间
+}
+
+// 对用户的操作消息的反馈
+message ACKAction
+{
+    required bytes result_msg = 1; //下棋成功 put_chess_sucess   悔棋成功undo_chess_sucess
+    required int32 action_id = 2;
+    optional int32 action_board_row = 3; //要操作的棋盘的行和列
+    optional int32 action_board_col = 4;
+    optional bool is_win = 5; //是否有胜利者
+    optional int32 win_id = 6;
+    optional int32 lose_id = 7;
+    optional bytes win_msg = 8;
+}
+
+
+//用户每次下棋的位置
+message Position {
+    required int32 row = 1;
+    required int32 col = 2;
+}
+// game发给auth服务，用来告诉auth服务哪个user赢了和输了，并记录用户成绩
+message REQGameOver
+{
+    optional int32 winner_id = 1;
+    optional int32 loser_id = 2;
+    optional int32 score = 3;
+    
+    required int32 black_id = 4;
+    required int32 white_id = 5;
+    required bool is_no_winner = 6;
+    required bool is_force_exit = 7;
+    repeated Position black_positions = 8;
+    repeated Position white_positions = 9;
+    required int32 conis = 10;
+    
+}
+
+//用户进入对战界面，然后退出游戏
+message REQExitGame
+{
+    required bytes req_msg = 1;   //退出游戏的操作是 exit_game   退出房间的操作是exit_room
+    optional int32 exit_table_id = 2;
+    required int32 exit_user_id = 3;
+    required int32 enemy_user_id = 4;
+}
+//另一个用户会收到 ACKExitGame 告知对手退出
+message ACKExitGame
+{
+    required int32 code = 1;
+    required bytes result_msg = 2; // enemy_exit_game    enemy_exit_room
+    optional int32 exit_table_id = 3;
+    optional int32 exit_user_id = 4;
+}
+
+//用户强制退出
+message REQForcExit
+{
+    optional int32 user_id = 1;
+}
+
+// 悔棋的询问消息，询问对手
+message REQAskUndoChess
+{
+    required int32 table_id = 1;
+    required int32 action_id = 2;  //悔棋的用户id
+}
+
+message ACKAskUndoChess
+{
+    required bool is_agree_undo_chess = 1; //用户是否同意悔棋，false表示不同意，true表示同意
+    required int32 table_id = 2;
+    required int32 action_id = 3;  //悔棋的用户id
+}
+
+
+message REQChat{
+    required int32 user_id = 1;
+    required int32 table_id = 2;
+    required int32 opp_id = 3;
+    optional bytes text = 4;
+}
+
+message ACKChatText{
+    required int32 is_sensitive = 1;
+    required int32 user_id = 2;
+    required int32 table_id = 3;
+    required int32 opp_id = 4;
+    optional bytes text = 5;
+}
+
+
+//用户继续游戏  A和B两个人游戏结束，A发起继续游戏的请求
+message REQContinueGame
+{
+    required int32 user_id = 1;
+    required int32 enemy_user_id = 2; //B的id
+    required int32 table_id = 3;
+}
+//发给A的回复消息
+message ACKContinueGame
+{
+    required int32 code = 1;   //大概率为0，小概率为1
+    //大概率为"等待对手同意继续游戏",小概率为"你的对手已经不在线",因为有可能两个人同时发起继续游戏的请求，然后其中一个人掉线了
+    required bytes result_msg = 2;
+}
+
+//询问B是否同意继续游戏
+message REQAskContinueGame
+{
+    required int32 enemy_user_id = 1; //A的id
+    required int32 user_id = 2; //B的id，在客户端进行校验，防止出现问题，极大概率不会出问题
+    required int32 table_id = 3;
+}
+
+//B发来的消息
+message ACKAskContinueGame
+{
+    required bool is_agree_continue_game = 1;
+    required int32 enemy_user_id = 2; //A的id
+    required int32 user_id = 3;
+    required int32 table_id = 4;
+}
+
+message ACKRefuseContinueGame
+{
+    required int32 code = 1;
+    required bytes result_msg = 2;
+}

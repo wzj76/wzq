@@ -1,0 +1,15 @@
+.DS_Store
+/cocos2d-duole/build/cocos2d_libs.xcodeproj/xcuserdata/
+/cocos2d-duole/cocos/scripting/lua-bindings/proj.ios_mac/cocos2d_lua_bindings.xcodeproj/xcshareddata/
+/cocos2d-duole/cocos/scripting/lua-bindings/proj.ios_mac/cocos2d_lua_bindings.xcodeproj/xcuserdata/
+third-sdks/bugly/plugin/lua/prebuilt
+third-sdks/bugly/plugin/prebuilt
+tools/buglyqq-upload-symbol/buglybin
+/cocos2d-duole/cocos/platform/android/libcocos2dx/build
+*.iml
+*.pyc
+/build/duole_clientbase_libs.xcodeproj/project.xcworkspace
+/build/duole_clientbase_libs.xcodeproj/xcshareddata/
+/build/duole_clientbase_libs.xcodeproj/xcuserdata/
+/cocos2d-duole/libs/src/build
+/gamebase/src/build

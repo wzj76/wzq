@@ -1,0 +1,11 @@
+*.iml
+**/.idea/
+.DS_Store
+**/.DS_Store
+.DS_Store?
+code/proj.android/dists/
+code/proj.ios_mac/phzgame.xcodeproj/xcshareddata/
+code/proj.ios_mac/phzgame.xcodeproj/xcuserdata/
+code/proj.ios_mac/phzgame.xcodeproj/project.xcworkspace/
+code/proj.ios_mac/phzgame.xcodeproj/project.xcworkspace/xcshareddata/
+code/proj.ios_mac/phzgame.xcodeproj/project.xcworkspace/xcuserdata/

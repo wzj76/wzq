@@ -1,0 +1,219 @@
+//保持连接
+message REQHold {
+}
+
+//心跳包应答
+message ACKHold {
+	optional int32 result_id = 1;   //心跳包返回结果
+}
+//msg 消息封装
+message MsgPackage{
+    optional int64 msg_id  = 1 ;
+    optional int64 seq_id  = 2 ;
+    optional int64 user_id = 3;
+    optional bytes msg     = 4 ;
+    optional bytes src     = 5 ;
+    optional int64 clientid = 6 ;
+}
+
+//注册
+message REQRegister
+{
+    optional bytes account = 1;
+    optional bytes passwd  = 2;
+}
+
+message ACKRegister
+{
+    optional int32 code   = 1;
+    optional bytes result = 2;
+}
+
+//登录
+message REQLogin
+{
+    optional bytes account = 1;
+    optional bytes passwd = 2;
+}
+
+message ACKLogin
+{
+    optional int32 code = 1;
+    optional UserInfo userinfo = 2;
+}
+
+
+message UserInfo
+{
+    optional int32 id = 1;
+    optional bytes username = 2;
+    optional int32 wintimes = 3;
+    optional int32 losetimes = 4;
+    optional int32 score = 5;
+    optional int32 level = 6;
+    optional int32 xp = 7;
+    optional int32 head_id = 8;
+    optional bool is_online = 9;
+    optional int32 coins = 10;
+    
+    message Prop {
+        optional int32 id = 1;
+        optional int32 quantity = 2;
+    }
+    
+    repeated Prop props = 11;
+}
+
+
+//匹配消息
+//用户发送一个req_msg = "req_match_start"的请求给room表示匹配开始，并附带上自己的信息
+//发送一个req_msg = "req_match_cancel"的请求给room表示匹配取消，此时也要带上自己的信息，room无法定位到该用户
+message REQRoom
+{
+    optional bytes req_msg=1;
+    required UserInfo userinfo = 2;
+}
+//匹配的应答
+//服务器发送code = 0 ,result_msg = "ack_match_start"的请求给用户表示开始匹配成功
+//发送code = 0 ,result_msg = "ack_match_cancel"的请求表示取消匹配成功
+//发送code = 0 , result_msg = "ack_match_sucess"的请求表示匹配成功，
+//userinfo是对手的信息,black_id 和 white_id是黑棋和白棋选手的id
+message ACKRoom
+{
+    optional int32 code   = 1;
+    optional bytes result_msg=2;
+    required UserInfo userinfo = 3;
+    required int32 black_id = 4;
+    required int32 white_id = 5;
+}
+
+
+//用户强制退出
+message REQForcExit
+{
+    optional int32 user_id = 1;
+}
+
+
+//用户注销
+message REQExitAccount{
+    required int32 user_id = 1;
+}
+
+
+//告知对方有新的好友申请
+message REQRequestFriend
+{
+    required int32 num = 1;
+    required int32 user_id = 2;
+}
+
+message ACKUpdateFriend
+{
+    required int32 user_id = 1;
+    required UserInfo firendinfo = 2;
+}
+
+
+
+//用户继续游戏  A和B两个人游戏结束，A发起继续游戏的请求
+message REQContinueGame
+{
+    required int32 user_id = 1;
+    required int32 enemy_user_id = 2; //B的id
+    required int32 table_id = 3;
+}
+//发给A的回复消息
+message ACKContinueGame
+{
+    required int32 code = 1;   //大概率为0，小概率为1
+    //大概率为"等待对手同意继续游戏",小概率为"你的对手已经不在线",因为有可能两个人同时发起继续游戏的请求，然后其中一个人掉线了
+    required bytes result_msg = 2;
+}
+
+//询问B是否同意继续游戏
+message REQAskContinueGame
+{
+    required int32 enemy_user_id = 1; //A的id
+    required int32 user_id = 2; //B的id，在客户端进行校验，防止出现问题，极大概率不会出问题
+    required int32 table_id = 3;
+}
+
+//B发来的消息
+message ACKAskContinueGame
+{
+    required bool is_agree_continue_game = 1;
+    required int32 enemy_user_id = 2; //A的id
+    required int32 user_id = 3;
+    required int32 table_id = 4;
+}
+message ACKRefuseContinueGame
+{
+    required int32 code = 1;
+    required bytes result_msg = 2;
+}
+
+
+
+
+message ACKFriendsList
+{
+    repeated UserInfo firendinfo = 1;
+}
+
+//用户进入对战界面，然后退出游戏
+message REQExitGame
+{
+    required bytes req_msg = 1;   //退出游戏的操作是 exit_game   退出房间的操作是exit_room
+    optional int32 exit_table_id = 2;
+    required int32 exit_user_id = 3;
+    required int32 enemy_user_id = 4;
+}
+//另一个用户会收到 ACKExitGame 告知对手退出
+message ACKExitGame
+{
+    required int32 code = 1;
+    required bytes result_msg = 2; // enemy_exit_game    enemy_exit_room
+    optional int32 exit_table_id = 3;
+    optional int32 exit_user_id = 4;
+}
+
+
+
+
+
+//A邀请B继续游戏
+message REQInviteFriendGame
+{
+    optional UserInfo userinfo = 1;//A的信息
+    required int32 friend_id = 2; //B的id
+}
+//room发给A的回复
+message ACKInviteFriendGame
+{
+    required int32 code = 1;
+    required bytes result_msg = 2;
+}
+
+//询问B是否同意继续游戏
+message REQAskInviteFriendGame
+{
+    optional UserInfo friend_info = 1;//A的信息
+    required int32 user_id = 2; //B的id
+}
+
+//B发来的消息
+message ACKAskInviteFriendGame
+{
+    //是否同意邀请
+    required bool is_agree_invite_game = 1;
+    optional UserInfo userinfo = 2;//B的信息
+    required int32 friend_id = 3; //A的id
+    optional bytes result_msg = 4;
+}
+//发给A的拒绝邀请的信息
+message ACKRefuseInviteFriendGame
+{
+    required int32 code = 1;
+    required bytes result_msg = 2;
+}

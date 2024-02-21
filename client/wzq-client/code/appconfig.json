@@ -1,0 +1,12 @@
+{
+    "app_name": "${DUOLE_APP_NAME}",
+    "channel": "${DUOLE_CHANNEL}",
+    "channel_group": "${DUOLE_CHANNEL_GROUP}",
+    "app_bundleid": "${DUOLE_APP_BUNDLEID}",
+    "app_version": "${DUOLE_APP_VERSION}",
+    "app_version_code": "${DUOLE_APP_VERCODE}",
+    "clientbase_version": "${CLIENTBASE_VERSION}",
+    "cocos2dx_version": "${COCOS2DX-VERSION}",
+    "bugly_version": "${BUGLY_VERSION}",
+    "launcher_version": "${LAUNCHER_VERSION}"
+}

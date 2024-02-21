@@ -1,0 +1,34 @@
+1.rapidjson 解析索引为空崩溃
+问题: const rapidjson::Value &obJsonUsers = obJson["userinfo"]; 为空崩溃
+修改: 项目逐个排查添加判定
+if (obJson.HasMember("userinfo"))
+{
+    const rapidjson::Value &obJsonUsers = obJson["userinfo"];
+}
+
+2、Node
+问题：ignoreAnchorPointForPosition 无效
+修改：替换为setIgnoreAnchorPointForPosition
+
+3.initWithByteArrays 和 getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR)
+问题：在3.x中使用initWithByteArrays(ccPositionTextureColor_vert, ccPositionTextureGray_frag)导致显示的sprite坐标不对
+和label置灰之后恢复label无法正常显示问题
+修改: initWithByteArrays(ccPositionTextureColor_noMVP_vert, ccPositionTextureGray_frag)
+      getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP)
+
+4.EditBox
+1.问题：组件InputMode为ANY会导致输入框默认常驻文字展示靠上；
+  修改：InputMode改为SINGLE_LINE即可；
+2.问题：输入框默认的文字展示变大；
+  修改：调用setPlaceholderFontSize设置常驻字体大小；
+
+5.ScrollView
+问题1：ScrollView中_touchListener新引擎默认setSwallowTouches(true)，导致下层监听失效
+修改：使用ScrollView时主动调用setSwallowTouches(false)
+
+问题2: ScorllView 中调用 Layout::onSizeChanged() 屏蔽ScorllView外点击按钮无效
+修改: 业务自己封装 ScrollViewMenu类（继承cocos2d::Menu 利用触摸监听) 来解决ScrollView外屏蔽按钮点击问题
+
+6.lua调用C++绑定函数
+问题：绑定函数未添加返回值 return n; 在新版本中导致android	调用崩溃。
+修改：添加返回值 

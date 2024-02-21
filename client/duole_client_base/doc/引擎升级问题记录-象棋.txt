@@ -1,0 +1,72 @@
+1、spine 动画修改
+
+find . -type f -path "*.json" |xargs sed -i '' 's/skinnedmesh/mesh/g'
+
+2、setOrderOfArrival 无效
+问题：attempt to call method 'setOrderOfArrival' (a nil value)
+修改：暂时注掉了，该接口影响node渲染优先级,疑似弃用
+参考：https://github.com/cocos2d/cocos2d-x/pull/6920
+
+3、Node
+问题：ignoreAnchorPointForPosition 无效
+修改：替换为setIgnoreAnchorPointForPosition
+
+4.TableView::onTouchEnded
+问题一：cellSizeForTable 引擎新版本返回值修改为(宽,高)
+修改：修改使用组件的对应逻辑
+问题二：_tableViewDelegate->tableCellUnhighlight(this, _touchedCell)和
+	 _tableViewDelegate->tableCellTouched(this, _touchedCell)调用先后顺序出现了对调，
+	 业务中存在后者回调依赖于前者回调实现的逻辑报错
+修改：调整顺序与cocos源码对应，并断开回调中的耦合部分
+
+5.initWithByteArrays
+问题：在3.x中使用initWithByteArrays(ccPositionTextureColor_vert, ccPositionTextureGray_frag)导致显示的sprite坐标不对
+修改：统一改为使用initWithByteArrays(ccPositionTextureColor_noMVP_vert, ccPositionTextureGray_frag);
+
+6.slider
+问题：slider拉伸显示异常
+修改：1.先调用loadBarTexture、loadProgressBarTexture再设置九宫格精灵属性 capinsets 和 contentsize
+	 2.bar和progressbar资源像素大小不同时，需要分别调用setCapInsetsBarRenderer、setCapInsetProgressBarRenderer以替代setCapInsets
+
+7.pageView
+问题一：setCustomScrollThreshold接口废弃(调整滑动翻页的灵敏度)
+修改：官方重构了pageview，继承于ListView，该接口没有给出替代方案，不影响性能表现，弃用setCustomScrollThreshold
+问题二：setCurPageIndex、getCurPageIndex接口弃用
+修改：使用setCurrentPageIndex、getCurrentPageIndex代替
+问题三：pageView的_currentPageIndex属性是惰性计算【官方注释：//The _currentPageIndex is lazy calculated，当前页码不具备实时性，脚本逻辑报错，滚动翻页失效
+修改：初始化创建后主动调用一次pageView:scrollToPage(0)刷新页码，PageViewCallBack触摸回调中对各UI的调用加判空。
+
+8.spine动画
+问题一：动画的播放事件监听不到
+解决：将项目中的cocoslua覆盖为client-base中的新版本
+问题二：初始化帧的纹理摆放有问题
+解决：spine动画的draw和update的调用顺序不稳定，存在当前帧不调用update的情况，使用spine:update(0)强制刷新一下【不推荐使用延迟一帧展示，影响渲染效果】
+
+9.EditBox
+问题一：组件EditBox输入框默认常驻文字展示靠上；
+修改：setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE)
+问题二：没有定制的输入框，android的小键盘遮挡editBox
+修改：设置输入模式将聚焦的editbox顶到上方，在AppActivity的onCreate()中getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+参考：https://www.cnblogs.com/sishuiliuyun/archive/2013/04/30/3051476.html
+
+10.ScrollView
+问题：ScrollView中_touchListener新引擎默认setSwallowTouches(true)，导致下层监听失效
+修改：使用ScrollView时主动调用setSwallowTouches(false)
+
+11.lua调用C++绑定函数
+问题：绑定函数未添加返回值 return n; 在新版本中导致android	调用崩溃。
+修改：添加返回值
+
+12.cocos原生组件绑定接口
+问题：新引擎删除了一些lua绑定，这些接口并未废弃，脚本调用时报错
+	1.lua_cocos2dx_extension_ScrollView_onTouchEnded
+	2.lua_cocos2dx_extension_ScrollView_onTouchMoved
+	3.lua_cocos2dx_extension_ScrollView_onTouchBegan
+	4.lua_cocos2dx_extension_ScrollView_onTouchCancelled
+修改：将仍在工作的接口绑定回去
+
+13.cc.ClippingNode
+问题：clippingNode使用节点裁切时使用透明的资源导致无法正确显示裁切区域
+修改：因为调用setAlphaThreshold(0),设置了渲染的alpha透明度闸值，导致无法渲染透明的裁切节点。可进行以下修改：
+		1.使用非透明资源 or 2.clip:setAlphaThreshold(1) or 3.不调用setAlphaThreshold
+参考：https://blog.csdn.net/while0/article/details/43850749

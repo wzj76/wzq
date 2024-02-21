@@ -1,0 +1,273 @@
+import org.gradle.internal.os.OperatingSystem
+import java.nio.file.Files
+
+static void backupFile(File file) {
+    if (!file.exists()) {
+        throw new Exception('备份文件失败：源文件不存在')
+    }
+    File bak = new File("${file.path}.bak")
+    if (bak.exists()) {
+        println('Warning：备份文件已存在')
+        return
+        // throw new Exception('备份文件失败：备份文件已存在')
+    }
+    Files.copy(file.toPath(), bak.toPath())
+}
+
+static void restoreFile(File file) {
+    File bak = new File("${file.path}.bak")
+    if (!bak.exists()) {
+        println('Warning：备份文件不存在')
+        return
+        // throw new Exception('还原文件失败：备份文件不存在')
+    }
+    bak.renameTo(file)
+}
+
+static void replaceFileContent(File file, String token, String replacement, boolean failOnNoReplacements) {
+    if (!file.exists()) {
+        throw new Exception('替换文件内容失败：源文件不存在')
+    }
+    String content = file.text
+    String pattern = '${' + token + '}'
+    if (failOnNoReplacements && !content.contains(pattern)) {
+        throw new Exception('替换文件内容失败：无法匹配替换模式')
+    }
+    file.write(content.replace(pattern, replacement))
+}
+
+apply plugin: 'com.android.application'
+//  输出文件名前缀；
+archivesBaseName = "phzgame"
+// sdks path:
+String duole_sdks = "../../../../duole_client_base/sdks"
+// third-sdks path:
+String third_sdks = "../../../../duole_client_base/third-sdks"
+
+android {
+    compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
+
+    // gradle 插件 3.1.0版本以后，不再使用 android.buildToolsVersion 
+    // 属性指定 Build Tools 的版本。默认情况下，该插件会使用所需的最低版本。
+    // buildToolsVersion PROP_BUILD_TOOLS_VERSION
+
+    signingConfigs {
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+            v2SigningEnabled false
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion PROP_MIN_SDK_VERSION
+        targetSdkVersion PROP_TARGET_SDK_VERSION
+
+        applicationId "com.duole.paohuzihd"
+        versionCode 2010900
+        versionName "2.1.9"
+        multiDexEnabled true
+        manifestPlaceholders= [qqappid: "1106072314"]
+
+        externalNativeBuild {
+            if (PROP_BUILD_TYPE == 'ndk-build') {
+                ndkBuild {
+                    targets 'phzgame'
+                    arguments 'NDK_TOOLCHAIN_VERSION=clang'
+                    arguments '-j' + Runtime.runtime.availableProcessors()
+
+                    def module_paths = [project.file("../../../../duole_client_base/cocos2d-duole").absolutePath,
+                                        project.file("../../../../duole_client_base/cocos2d-duole/cocos").absolutePath,
+                                        project.file("../../../../duole_client_base/cocos2d-duole/external").absolutePath]
+                    if (OperatingSystem.current().isWindows()) {
+                        module_paths = module_paths.collect {it.replaceAll('\\\\', '/')}
+                        arguments 'NDK_MODULE_PATH=' + module_paths.join(";")
+                    }
+                    else {
+                        arguments 'NDK_MODULE_PATH=' + module_paths.join(':')
+                    }
+                }
+            }
+            else if (PROP_BUILD_TYPE == 'cmake') {
+                cmake {
+                    targets 'phzgame'
+                    // resolved warning: ABIs [arm64-v8a,armeabi-v7a,armeabi] set by 'android.injected.build.abi' gradle flag contained 'ARME
+                    // c++_static -> c++_shared
+                    arguments "-DCMAKE_FIND_ROOT_PATH=", "-DANDROID_STL=c++_static", "-DANDROID_TOOLCHAIN=clang", "-DANDROID_ARM_NEON=TRUE",
+                    // 有时会遇到CMAKE_MAKE_PROGRAM提示未设置的问题，可在这里显示指定（原因未知）；
+                     "-DCMAKE_MAKE_PROGRAM=/opt/android-sdk/cmake/3.10.2.4988404/bin/ninja"
+                    cppFlags "-frtti -fexceptions -fsigned-char"
+                }
+            }
+        }
+
+         ndk {
+            abiFilters = []
+            abiFilters.addAll(PROP_APP_ABI.split(':').collect{it as String})
+         }
+    }
+
+    // 排除不支持的架构:[armeabi, x86_64, x86] 
+    packagingOptions {
+        exclude 'lib/x86_64'
+        exclude 'lib/x86'
+        exclude 'lib/armeabi'
+    }
+
+    sourceSets.main {
+        // java.srcDir "src/main/java"
+        java.srcDirs = [
+            "src/main/java",
+            "${duole_sdks}/src/platform/android/java"
+        ]
+        res.srcDir "src/main/res"
+        manifest.srcFile "src/main/AndroidManifest.xml"
+        assets.srcDir "../../Resources"        
+        // 指定动态库目录；
+        jniLibs.srcDirs = [
+            "src/main/jni/prebuiltLibs"
+            // "${third_sdks}/bugly/buglysdk/android/prebuilt"
+        ]
+    }
+
+    externalNativeBuild {
+        if (PROP_BUILD_TYPE == 'ndk-build') {
+            ndkBuild {
+                path "src/main/jni/Android.mk"
+            }
+        }
+        else if (PROP_BUILD_TYPE == 'cmake') {
+            cmake {
+                path "../../CMakeLists.txt"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.release
+            manifestPlaceholders.put(ANDROID_CHANNEL_PLACEHOLDER, ANDROID_CHANNEL)
+            manifestPlaceholders.put(ANDROID_CHANNEL_GROUP_PLACEHOLDER, ANDROID_CHANNEL_GROUP)
+
+            externalNativeBuild {
+                ndkBuild {
+                    arguments 'NDK_DEBUG=0'
+                }
+            }
+        }
+
+        debug {
+            debuggable true
+            jniDebuggable true
+            renderscriptDebuggable true
+            minifyEnabled false
+
+            signingConfig signingConfigs.release
+            manifestPlaceholders.put(ANDROID_CHANNEL_PLACEHOLDER, ANDROID_CHANNEL)
+            manifestPlaceholders.put(ANDROID_CHANNEL_GROUP_PLACEHOLDER, ANDROID_CHANNEL_GROUP)
+
+            externalNativeBuild {
+                ndkBuild {
+                    arguments 'NDK_DEBUG=1'
+                }
+            }
+        }
+    }
+}
+
+// Map for the version code that gives each ABI a value.
+ext.abiCodes = ['armeabi-v7a':1, 'arm64-v8a':2]
+
+// https://developer.android.com/studio/build/configure-apk-splits#groovy
+// 默认情况下，当 Gradle 生成多个 APK 时，每个 APK 都有相同的版本信息，
+// 该信息在模块级 build.gradle 文件中指定。
+// 由于 Google Play 商店不允许同一个应用的多个 APK 全都具有相同的版本信息，
+// 因此在上传到 Play 商店之前，您需要确保每个 APK 都有自己唯一的 versionCode。
+
+android.applicationVariants.all { variant ->
+    // 为 apk 设置 versioncode
+    variant.outputs.each { output ->        
+        // Stores the value of ext.abiCodes that is associated with the ABI for this variant.
+        def baseAbiVersionCode =
+            // Determines the ABI for this variant and returns the mapped value.
+            project.ext.abiCodes.get(PROP_APP_ABI)
+        if (baseAbiVersionCode != null) {
+            // Assigns the new version code to versionCodeOverride, which changes the version code
+            // for only the output APK, not for the variant itself. Skipping this step simply
+            // causes Gradle to use the value of variant.versionCode for the APK.
+            output.versionCodeOverride =
+                    baseAbiVersionCode * 10 + variant.versionCode
+        }
+    }
+
+    // 输出文件名称修改
+    variant.getAssembleProvider().get().doLast {
+        variant.outputs.each { output ->
+            File _outputfile = output.outputFile
+            String appName = archivesBaseName
+            String versionName = android.defaultConfig.versionName
+            String channelName = ANDROID_CHANNEL
+            String channelGroupName = ANDROID_CHANNEL_GROUP
+            String abiInfo = 'unviersal'
+            if (project.ext.abiCodes.get(PROP_APP_ABI) != null) {
+                abiInfo = PROP_APP_ABI
+            }
+            String nativeBuildMode = variant.buildType.debuggable ? 'debug' : 'release'
+            copy {
+                from _outputfile
+                into "${rootDir}/${DIST_OUTPUT_DIRECTORY_PATH_RELATIVE_PROJECT}/${nativeBuildMode}"
+                rename _outputfile.name, "${appName}_${channelName}_${versionName}_${abiInfo}_${nativeBuildMode}.apk"
+            }
+        }
+    }
+}
+
+android.applicationVariants.all { variant ->
+    // delete previous files first
+    delete "${buildDir}/intermediates/merged_assets/${variant.dirName}"
+
+    variant.getMergeAssetsProvider().get().doLast {
+        copy {
+            from "${buildDir}/../../../Resources"
+            into "${buildDir}/intermediates/merged_assets/${variant.dirName}/out"
+            exclude "**/*.gz"
+        }
+        //  must_copy 目录拷贝；
+        copy {
+            from "${buildDir}/../../../must_copy"
+            into "${buildDir}/intermediates/merged_assets/${variant.dirName}/out"
+            exclude "**/*.gz"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    // implementation fileTree(dir: '../../../../duole_client_base/third-sdks/bugly/buglysdk/android/libs', include: ['*.jar'])
+    implementation fileTree(dir: '../../../../duole_client_base/third-sdks/bugly_v2/buglysdk/android/libs', include: ['*.jar', '*.aar'])
+    implementation project(':libcocos2dx')
+
+    // Udesk客服SDK依赖 BEGIN
+    implementation project(':sdk_udesksdkui')
+    // Udesk客服SDK依赖 END
+    implementation 'com.android.support:support-v4:27.1.1'
+    // 微信SDK依赖 BEGIN
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.6.5'
+    // 微信SDK依赖 END
+
+    // 友盟统计SDK依赖 BEGIN
+    implementation  'com.umeng.umsdk:common:9.5.0'// 必选
+    implementation  'com.umeng.umsdk:asms:1.4.1'// 必选
+    // 友盟统计SDK依赖 END
+
+    // Launcher核心依赖库（横屏）
+    implementation 'com.duole.launcher:launcher:1.1.3-beta1-landscape'
+}

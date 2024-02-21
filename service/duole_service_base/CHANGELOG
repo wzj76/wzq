@@ -1,0 +1,11 @@
+v1.0.0_beta2 2022-11-09
+-----------------
+- mcgutil：redis读写超时默认值从 60秒调整为 10秒；
+- mcgutil：增加了几个工具函数（从保皇同步代码）；
+- mcgservice：定期清理 websocket 对象（从保皇同步代码）；
+
+
+v1.0.0_beta1 2022-05-25
+-----------------
+- 增加 servicebase 模块，包含 mcgcommon、mcgservice、mcgutil、mcghttp；
+- 增加 external 模块，包含 libwebsockets；

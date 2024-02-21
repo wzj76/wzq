@@ -1,0 +1,6 @@
+{
+    "clientbase":"v1.0.0_beta15",
+    "cocos2d-x":"3.17.2",
+    "bugly-ios":"2.5.9",
+    "bugly-android":"4.0.4"
+}

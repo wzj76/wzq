@@ -1,0 +1,7 @@
+include ':libcocos2dx'
+project(':libcocos2dx').projectDir = new File(settingsDir, '../../../duole_client_base/cocos2d-duole/cocos/platform/android/libcocos2dx')
+include ':phzgame'
+project(':phzgame').projectDir = new File(settingsDir, 'app')
+include ':sdk_udesksdkui'
+project(':sdk_udesksdkui').projectDir = new File(settingsDir, 'sdk_udesksdkui')
+rootProject.name = "phzgame"

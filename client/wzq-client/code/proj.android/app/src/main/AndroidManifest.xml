@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.duole.paohuzihd"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="auto">
+
+    <!-- sdk合规权限修改 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" tools:node = "remove" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:node = "remove" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>    
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- X5 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- X5 END-->
+
+    <!-- 友盟统计SDK begin-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 友盟统计SDK end-->
+
+    <!-- ShareSDK相关权限 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- ShareSDK相关权限 end -->
+
+    <uses-feature android:glEsVersion="0x00020000" />
+    
+    <supports-screens android:anyDensity="true"
+                      android:smallScreens="true"
+                      android:normalScreens="true"
+                      android:largeScreens="true"
+                      android:xlargeScreens="true"/>
+    
+    <application android:label="@string/app_name"
+                 android:icon="@drawable/icon"
+                 tools:replace="android:allowBackup"
+                 android:allowBackup="false"
+                 android:name="com.umeng.social.CCApp">
+                 
+        <!-- 主程序 -->
+        <!-- Tell Cocos2dxActivity the name of our .so -->
+        <meta-data android:name="android.app.lib_name"
+                   android:value="phzgame" />
+
+        <!--多乐SDK BEGING -->
+        <!-- 多乐启动器配置数据 -->
+        <meta-data tools:replace="value" android:name="app_activity_name"
+            android:value="com.duole.paohuzihd.AppActivity" />
+        <!-- 多乐游戏ID -->
+        <meta-data tools:replace="value" android:name="DUOLE_GAME_ID"
+            android:value="8" />
+        <!-- 多乐渠道号 -->
+        <meta-data tools:replace="value" android:name="DUOLE_CHANNEL"
+            android:value="${ANDROID_CHANNEL}" />
+        <!-- 适合年龄 年龄范围 8、12、16、18 -->
+        <meta-data tools:replace="value" android:name="SUITABLE_AGE"
+            android:value="18" />
+        <!-- 如需要定制隐私对话框内容，需要将下⾯的配置拷⻉到主 manifest 并对内容进⾏设置-->
+        <meta-data tools:replace="value" android:name="privacy_agreement_url"
+        android:value="https://www.duole.com/contract.html" />
+        <meta-data tools:replace="value" android:name="privacy_guide_url"
+        android:value="https://www.duole.com/privacy/paohuzi?template_id=1" />
+        <meta-data tools:replace="value" android:name="privacy_guide_children_url"
+        android:value="https://www.duole.com/privacy-guide-children.html" />
+        <meta-data tools:replace="value" android:name="suitable_age_message"
+            android:value="1、本游戏是一款棋牌类游戏，适用于年满$(age)周岁及以上的用户，建议未成年人在家长监护下使用本游戏产品。
+            \n2、本游戏基于传统棋牌游戏设计，剧情简单，没有基于真实历史和现实事件的改编内容。游戏为卡通风格，主要的游戏画面为游戏牌局，游戏中采用丰富的音效来烘托游戏氛围。
+            \n3、游戏中设置实名认证系统，认证为未成年的用户游戏将限制管理。
+            \n4、棋牌游戏有助于锻炼用户的记忆力和分析判断力，需要用户不断分析判断和做决策，需要玩家进行适量思考，有助于提升玩家的逻辑思维能力；能够给玩家积极愉悦的情绪体验，增强玩家的自信心。"
+        />
+        <meta-data tools:replace="value" android:name="suitable_age_message_18"
+            android:value="1、本游戏是一款棋牌类游戏，适用于年满$(age)周岁及以上的用户。
+            \n2、本游戏基于传统棋牌游戏设计，剧情简单，没有基于真实历史和现实事件的改编内容。游戏为卡通风格，主要的游戏画面为游戏牌局，游戏中采用丰富的音效来烘托游戏氛围。
+            \n3、游戏中设置实名认证系统，认证为未成年人用户将无法登录。
+            \n4、棋牌游戏有助于锻炼用户的记忆力和分析判断力，需要用户不断分析判断和做决策，需要玩家进行适量思考，有助于提升玩家的逻辑思维能力；能够给玩家积极愉悦的情绪体验，增强玩家的自信心。"
+        />
+        <!--多乐SDK END -->
+        
+        <!-- AppActivity -->
+        <activity android:name="com.duole.paohuzihd.AppActivity"
+                  android:label="@string/app_name"
+                  android:screenOrientation="landscape"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
+                  android:launchMode="singleTask">
+        </activity>
+        
+        <activity android:name="com.duole.games.sdk.launcher.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="duole.paohuzihd" />
+            </intent-filter>
+        </activity>
+
+        <!-- 文件路径 FileProvider配置访问路径，适配7.0及其以上 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/app_update_provider_paths" />
+        </provider>
+        <!-- END -->
+        
+        <receiver android:name="com.duole.jniutil.NotificationReceiver"
+                  android:process=":newinst">
+            <intent-filter>
+                <action android:name="play_hskay" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 友盟参数 -->
+        <meta-data android:name="UMENG_APPKEY" android:value="58c36f449f06fd5b13000f75" />
+        <meta-data android:name="UMENG_CHANNEL" android:value="${ANDROID_CHANNEL}" />
+        <!-- {ANDROID_CHANNEL} duole -->
+        <meta-data android:name="UMENG_MESSAGE_SECRET" android:value="d3808b52b9abfe58a69f295c00a811e7" />
+        <!-- END -->
+
+        <!-- **********【微信支付】activity************* -->
+        <activity
+            android:name="${applicationId}.wxapi.WXPayEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- **********【微信支付】END************* -->
+
+        <!-- ShareSDK -->
+        <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="36c3e05d09bb3" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="07276bde171f80b08f426d615d0da902" />
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- 微信分享 -->
+        <activity
+            android:name="${applicationId}.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <!-- QQ和QQ空间分享 -->
+        <activity
+            android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1104713816" />
+            </intent-filter>
+        </activity>
+        <!-- END -->
+
+    </application>
+</manifest> 
